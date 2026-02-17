@@ -8,6 +8,8 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *  $table->decimal('precio', 12, 2)->change();
+    *  $table->dropColumn('stock');
      */
     public function up(): void
     {
