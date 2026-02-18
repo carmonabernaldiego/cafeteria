@@ -48,7 +48,7 @@ class ProductoController extends Controller
             $data['imagen'] = $request->file('imagen')->store('productos', 'public');
         }
 
-        Product::create($data);
+        Producto::create($data);
 
         return redirect()->route('productos.index')->with('success', 'Producto creado exitosamente.');
     }
