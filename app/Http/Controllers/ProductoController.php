@@ -59,7 +59,8 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        //
+        $categorias = Categoria::orderBy('nombre', 'asc')->get();
+        return view('productos.editar', compact('categorias', 'producto'));
     }
 
     /**
@@ -67,7 +68,26 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'precio' => 'required|numeric|min:0',
+            'cantidad' => 'required|integer|min:0',
+            'categoria_id' => 'required|exists:categorias,id',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'activo' => 'boolean',
+        ]);
+
+        $data = $request->except('imagen');
+        $data['activo'] = $request->has('activo') ? 1 : 0;
+
+        if ($request->hasFile('imagen')) {
+            $data['imagen'] = $request->file('imagen')->store('productos', 'public');
+        }
+
+        $producto->update($data);
+
+        return redirect()->route('productos.index')->with('success', 'Producto actualizado exitosamente.');
     }
 
     /**
