@@ -12,7 +12,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+        $productos = Producto::with('categoria')->orderBy('nombre', 'asc')->paginate(10);
+        return view('productos.index', compact('productos'));
     }
 
     /**
@@ -31,13 +32,6 @@ class ProductoController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Producto $producto)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
