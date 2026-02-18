@@ -12,7 +12,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = Categoria::withCount('productos')->orderBy('nombre')->paginate(10);
+        return view('categorias.index', compact('categorias'));
     }
 
     /**
@@ -20,7 +21,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('categorias.crear');
     }
 
     /**
@@ -28,15 +29,13 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'nombre' => 'required|string|max:255|unique:categorias',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Categoria $categoria)
-    {
-        //
+        Categoria::create($request->only('nombre'));
+
+        return redirect()->route('categorias.index')->with('success', 'Categoría creada exitosamente.');
     }
 
     /**
@@ -44,7 +43,7 @@ class CategoriaController extends Controller
      */
     public function edit(Categoria $categoria)
     {
-        //
+        return view('categorias.editar', compact('categoria'));
     }
 
     /**
@@ -52,7 +51,13 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255|unique:categorias,nombre,' . $categoria->id,
+        ]);
+
+        $categoria->update($request->only('nombre'));
+
+        return redirect()->route('categorias.index')->with('success', 'Categoría actualizada exitosamente.');
     }
 
     /**
@@ -60,6 +65,7 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        $categoria->delete();
+        return redirect()->route('categorias.index')->with('success', 'Categoría eliminada exitosamente.');
     }
 }
