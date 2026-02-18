@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -21,7 +22,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = Categoria::orderBy('nombre', 'asc')->get();
+        return view('productos.crear', compact('categorias'));
     }
 
     /**
@@ -29,7 +31,26 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'precio' => 'required|numeric|min:0',
+            'cantidad' => 'required|integer|min:0',
+            'categoria_id' => 'required|exists:categorias,id',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'activo' => 'boolean',
+        ]);
+
+        $data = $request->except('imagen');
+        $data['activo'] = $request->has('activo') ? 1 : 0;
+
+        if ($request->hasFile('imagen')) {
+            $data['imagen'] = $request->file('imagen')->store('productos', 'public');
+        }
+
+        Product::create($data);
+
+        return redirect()->route('productos.index')->with('success', 'Producto creado exitosamente.');
     }
 
 
