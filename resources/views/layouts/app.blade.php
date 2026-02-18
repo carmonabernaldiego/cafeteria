@@ -152,6 +152,12 @@
                 <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('ventas.*') ? 'active' : '' }}"
+                            href="{{ route('ventas.index') }}">
+                            <i class="bi bi-cart"></i> Ventas
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('categorias.*') ? 'active' : '' }}"
                             href="{{ route('categorias.index') }}">
                             <i class="bi bi-tags"></i> Categorías
