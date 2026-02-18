@@ -30,8 +30,8 @@
                         @forelse($categorias as $categoria)
                             <tr>
                                 <td>{{ $categoria->id }}</td>
-                                <td><strong>{{ $categoria->name }}</strong></td>
-                                <td><span class="badge bg-info">{{ $categoria->products_count }} productos</span></td>
+                                <td><strong>{{ $categoria->nombre }}</strong></td>
+                                <td><span class="badge bg-info">{{ $categoria->productos_count }} productos</span></td>
                                 <td>{{ $categoria->created_at->format('d/m/Y') }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('categorias.edit', $categoria) }}"

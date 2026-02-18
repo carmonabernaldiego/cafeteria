@@ -13,10 +13,10 @@
             <form action="{{ route('categorias.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label for="name" class="form-label fw-bold">Nombre de la Categoría</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                        name="name" value="{{ old('name') }}" required placeholder="Ej: Bebidas calientes, Postres...">
-                    @error('name')
+                    <label for="nombre" class="form-label fw-bold">Nombre de la Categoría</label>
+                    <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre"
+                        name="nombre" value="{{ old('nombre') }}" required placeholder="Ej: Bebidas calientes, Postres...">
+                    @error('nombre')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
