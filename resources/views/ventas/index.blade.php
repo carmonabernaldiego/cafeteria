@@ -100,7 +100,7 @@
             <div class="page-header">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div>
-                        <h2 class="mb-0"><i class="bi bi-cart3 text-muted"></i> Punto de Venta</h2>
+                        <h2 class="mb-0"><i class="bi bi-cart text-muted"></i> Punto de Venta</h2>
                         <small class="text-muted">Selecciona productos para agregar a la venta</small>
                     </div>
                 </div>
