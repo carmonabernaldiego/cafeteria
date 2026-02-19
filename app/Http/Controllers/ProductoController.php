@@ -39,6 +39,9 @@ class ProductoController extends Controller
             'categoria_id' => 'required|exists:categorias,id',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'activo' => 'boolean',
+        ], [
+            'imagen.mimes' => 'La imagen debe ser JPG, PNG, GIF.',
+            'imagen.max' => 'La imagen no puede pesar más de 2MB.',
         ]);
 
         $data = $request->except('imagen');
@@ -76,6 +79,9 @@ class ProductoController extends Controller
             'categoria_id' => 'required|exists:categorias,id',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'activo' => 'boolean',
+        ], [
+            'imagen.mimes' => 'La imagen debe ser JPG, PNG, GIF.',
+            'imagen.max' => 'La imagen no puede pesar más de 2MB.',
         ]);
 
         $data = $request->except('imagen');
