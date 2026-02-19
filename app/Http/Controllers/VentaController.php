@@ -13,8 +13,9 @@ class VentaController extends Controller
 {
     public function index()
     {
-    
-        return view('ventas.index');
+        $categorias = Categoria::orderBy('nombre')->get();
+        $productos = Producto::where('activo', true)->where('cantidad', '>', 0)->with('categoria')->orderBy('nombre')->get();
+        return view('ventas.index', compact('categorias', 'productos'));
     }
 
     public function store(Request $request)
@@ -69,7 +70,7 @@ class VentaController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Venta registrada exitosamente.',
-                'sale' => $sale->load('detallles.producto'),
+                'venta' => $venta->load('detalles.producto'),
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -78,5 +79,11 @@ class VentaController extends Controller
                 'message' => 'Error al procesar la venta: ' . $e->getMessage()
             ], 500);
         }
+    }
+
+    public function recibo(Venta $venta)
+    {
+        $venta->load('detalles.producto');
+        return view('ventas.recibo', compact('venta'));
     }
 }
