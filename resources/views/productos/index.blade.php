@@ -7,7 +7,7 @@
 @section('content')
     <div class="page-header d-flex justify-content-between align-items-center">
         <div>
-            <h2 class="mb-0"><i class="bi bi-box-seam text-muted"></i> Administración de Productos</h2>
+            <h2 class="mb-0"><i class="bi bi-basket-fill text-muted"></i> Administración de Productos</h2>
             <small class="text-muted">Gestiona el catálogo de productos de la cafetería</small>
         </div>
         <a href="{{ route('productos.create') }}" class="btn btn-kfe">

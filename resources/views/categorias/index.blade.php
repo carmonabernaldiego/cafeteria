@@ -5,7 +5,7 @@
 @section('content')
     <div class="page-header d-flex justify-content-between align-items-center">
         <div>
-            <h2 class="mb-0"><i class="bi bi-tags text-muted"></i>Administración de Categorías</h2>
+            <h2 class="mb-0"><i class="bi bi-tags text-muted"></i> Administración de Categorías</h2>
             <small class="text-muted">Gestionar las categorías de los productos</small>
         </div>
         <a href="{{ route('categorias.create') }}" class="btn btn-kfe">

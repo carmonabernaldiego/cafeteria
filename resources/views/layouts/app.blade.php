@@ -170,6 +170,13 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('reportes.*') ? 'active' : '' }}"
+                            href="{{ route('reportes.index') }}">
+                            <i class="bi bi-bar-chart"></i> Reportes
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>
