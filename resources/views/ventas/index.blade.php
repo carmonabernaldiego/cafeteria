@@ -352,6 +352,24 @@
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
+                            // Actualizar badges de cantidad en las tarjetas
+                            result.venta.detalles.forEach(detalle => {
+                                const productCards = document.querySelectorAll('.product-item');
+                                productCards.forEach(card => {
+                                    const cardEl = card.querySelector('.product-card');
+                                    if (cardEl && cardEl.getAttribute('onclick').includes(`addToCart(${detalle.producto_id},`)) {
+                                        const badge = card.querySelector('.stock-badge');
+                                        const newStock = detalle.producto.cantidad;
+                                        badge.textContent = 'Cantidad: ' + newStock;
+                                        badge.className = 'badge stock-badge ' + (newStock <= 5 ? 'bg-danger' : 'bg-success');
+
+                                        // Actualizar maxStock en el onclick
+                                        const onclick = cardEl.getAttribute('onclick');
+                                        cardEl.setAttribute('onclick', onclick.replace(/, \d+\)$/, `, ${newStock})`));
+                                    }
+                                });
+                            });
+
                             document.getElementById('saleMessage').textContent = result.message;
                             document.getElementById('saleTotal').textContent = '$' + parseFloat(result.venta.total).toFixed(
                                 2);
